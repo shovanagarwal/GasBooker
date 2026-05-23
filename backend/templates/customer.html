@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - GasBook</title>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard-styles.css') }}">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="container">
+            <div class="navbar-inner">
+                <a href="index.html" class="logo">
+                    <i data-lucide="flame"></i>
+                    <span>GasBook</span>
+                </a>
+                <nav class="dashboard-nav">
+                    <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                        <i data-lucide="layout-dashboard"></i>
+                        Dashboard
+                    </a>
+                    <a href="#book-cylinder" class="nav-link" data-section="book-cylinder">
+                        <i data-lucide="shopping-cart"></i>
+                        Book Gas
+                    </a>
+                    <a href="#my-orders" class="nav-link" data-section="my-orders">
+                        <i data-lucide="package"></i>
+                        My Orders
+                    </a>
+                    <a href="#payments" class="nav-link" data-section="payments">
+                        <i data-lucide="credit-card"></i>
+                        Payments
+                    </a>
+                    <a href="#profile" class="nav-link" data-section="profile">
+                        <i data-lucide="user"></i>
+                        Profile
+                    </a>
+                </nav>
+                <div class="header-actions">
+                    <button id="theme-switch">
+                        <i data-lucide="sun"></i>
+                        <i data-lucide="moon"></i>
+                    </button>
+                    <div class="user-menu">
+                        <button class="user-avatar">
+                            <i data-lucide="user-circle"></i>
+                            <span>John Doe</span>
+                            <i data-lucide="chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="#profile"><i data-lucide="settings"></i> Settings</a>
+                            <a href="#help"><i data-lucide="help-circle"></i> Help & Support</a>
+                            <a href="index.html"><i data-lucide="log-out"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Dashboard Overview Section -->
+        <section id="dashboard" class="dashboard-section active">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h1 class="section-title">Welcome back, John!</h1>
+                        <p class="section-subtitle">Manage your gas cylinder bookings and track deliveries</p>
+                    </div>
+                    <div class="date-display">
+                        <span id="current-date"></span>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <button class="quick-action-card emergency" onclick="showSection('book-cylinder')">
+                        <i data-lucide="zap"></i>
+                        <div>
+                            <h3>Emergency Booking</h3>
+                            <p>Get gas delivered within 2 hours</p>
+                        </div>
+                    </button>
+                    <button class="quick-action-card regular" onclick="showSection('book-cylinder')">
+                        <i data-lucide="calendar"></i>
+                        <div>
+                            <h3>Schedule Booking</h3>
+                            <p>Plan your next cylinder delivery</p>
+                        </div>
+                    </button>
+                    <button class="quick-action-card subscription">
+                        <i data-lucide="refresh-cw"></i>
+                        <div>
+                            <h3>Auto Subscription</h3>
+                            <p>Never run out of gas again</p>
+                        </div>
+                    </button>
+                    <button class="quick-action-card track" onclick="showSection('my-orders')">
+                        <i data-lucide="map-pin"></i>
+                        <div>
+                            <h3>Track Delivery</h3>
+                            <p>Check your order status</p>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Dashboard Stats -->
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon pending">
+                            <i data-lucide="clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>2</h3>
+                            <p>Active Orders</p>
+                            <span class="stat-change positive">+1 from last month</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon delivered">
+                            <i data-lucide="check-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>24</h3>
+                            <p>Total Deliveries</p>
+                            <span class="stat-change positive">+4 this month</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon savings">
+                            <i data-lucide="piggy-bank"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>₹1,240</h3>
+                            <p>Total Savings</p>
+                            <span class="stat-change positive">Through subscriptions</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon loyalty">
+                            <i data-lucide="star"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>850</h3>
+                            <p>Loyalty Points</p>
+                            <span class="stat-change">Available to redeem</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="recent-activity">
+                    <div class="activity-header">
+                        <h2>Recent Activity</h2>
+                        <button class="btn-secondary" onclick="showSection('my-orders')">View All Orders</button>
+                    </div>
+                    <div class="activity-timeline">
+                        <div class="timeline-item delivered">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h4>Cylinder Delivered Successfully</h4>
+                                <p>14.2kg Domestic Cylinder • Order #GB001234</p>
+                                <span class="timeline-date">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item in-transit">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h4>Out for Delivery</h4>
+                                <p>19kg Commercial Cylinder • Order #GB001235</p>
+                                <span class="timeline-date">5 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item confirmed">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h4>Order Confirmed</h4>
+                                <p>14.2kg Domestic Cylinder • Order #GB001236</p>
+                                <span class="timeline-date">1 day ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Book Cylinder Section -->
+        <section id="book-cylinder" class="dashboard-section">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h1 class="section-title">Book Gas Cylinder</h1>
+                        <p class="section-subtitle">Choose from our wide range of cylinders</p>
+                    </div>
+                </div>
+
+                <!-- Booking Type Selection -->
+                <div class="booking-type-selector">
+                    <button class="booking-type active" data-type="regular">
+                        <i data-lucide="calendar"></i>
+                        <span>Regular Booking</span>
+                    </button>
+                    <button class="booking-type" data-type="emergency">
+                        <i data-lucide="zap"></i>
+                        <span>Emergency (2hrs)</span>
+                    </button>
+                    <button class="booking-type" data-type="subscription">
+                        <i data-lucide="refresh-cw"></i>
+                        <span>Subscription</span>
+                    </button>
+                </div>
+
+                <!-- Cylinder Selection -->
+                <div class="cylinder-grid">
+                    <div class="cylinder-card" data-type="domestic">
+                        <div class="cylinder-image">
+                            <i data-lucide="home"></i>
+                        </div>
+                        <div class="cylinder-info">
+                            <h3>Domestic Cylinder</h3>
+                            <p class="cylinder-capacity">14.2 KG</p>
+                            <p class="cylinder-description">Perfect for home cooking and daily use</p>
+                            <div class="cylinder-price">
+                                <span class="price">₹899</span>
+                                <span class="original-price">₹999</span>
+                            </div>
+                            <div class="cylinder-features">
+                                <span class="feature"><i data-lucide="shield-check"></i> ISI Certified</span>
+                                <span class="feature"><i data-lucide="clock"></i> Same day delivery</span>
+                            </div>
+                            <button class="btn-primary cylinder-select" data-cylinder="domestic-14.2">
+                                Select Cylinder
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="cylinder-card" data-type="commercial">
+                        <div class="cylinder-image">
+                            <i data-lucide="building-2"></i>
+                        </div>
+                        <div class="cylinder-info">
+                            <h3>Commercial Cylinder</h3>
+                            <p class="cylinder-capacity">19 KG</p>
+                            <p class="cylinder-description">Ideal for restaurants and small businesses</p>
+                            <div class="cylinder-price">
+                                <span class="price">₹1,599</span>
+                                <span class="original-price">₹1,799</span>
+                            </div>
+                            <div class="cylinder-features">
+                                <span class="feature"><i data-lucide="shield-check"></i> Commercial Grade</span>
+                                <span class="feature"><i data-lucide="truck"></i> Express delivery</span>
+                            </div>
+                            <button class="btn-primary cylinder-select" data-cylinder="commercial-19">
+                                Select Cylinder
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="cylinder-card" data-type="industrial">
+                        <div class="cylinder-image">
+                            <i data-lucide="factory"></i>
+                        </div>
+                        <div class="cylinder-info">
+                            <h3>Industrial Cylinder</h3>
+                            <p class="cylinder-capacity">47.5 KG</p>
+                            <p class="cylinder-description">Heavy-duty for industrial applications</p>
+                            <div class="cylinder-price">
+                                <span class="price">₹3,299</span>
+                                <span class="original-price">₹3,599</span>
+                            </div>
+                            <div class="cylinder-features">
+                                <span class="feature"><i data-lucide="shield-check"></i> Industrial Grade</span>
+                                <span class="feature"><i data-lucide="wrench"></i> Installation support</span>
+                            </div>
+                            <button class="btn-primary cylinder-select" data-cylinder="industrial-47.5">
+                                Select Cylinder
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Details Form -->
+                <div id="booking-form" class="booking-form" style="display: none;">
+                    <h3>Booking Details</h3>
+                    <form>
+                        <div class="form-group">
+                            <label>Delivery Address</label>
+                            <textarea placeholder="Enter your complete delivery address"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Preferred Date</label>
+                                <input type="date" id="delivery-date">
+                            </div>
+                            <div class="form-group">
+                                <label>Time Slot</label>
+                                <select>
+                                    <option>Morning (9 AM - 12 PM)</option>
+                                    <option>Afternoon (12 PM - 4 PM)</option>
+                                    <option>Evening (4 PM - 7 PM)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Special Instructions</label>
+                            <textarea placeholder="Any special delivery instructions (optional)"></textarea>
+                        </div>
+                        <div class="booking-summary">
+                            <h4>Order Summary</h4>
+                            <div class="summary-item">
+                                <span>Cylinder Cost</span>
+                                <span>₹899</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Delivery Charge</span>
+                                <span>₹50</span>
+                            </div>
+                            <div class="summary-item discount">
+                                <span>Loyalty Discount</span>
+                                <span>-₹49</span>
+                            </div>
+                            <div class="summary-total">
+                                <span>Total Amount</span>
+                                <span>₹900</span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary booking-submit">
+                            Proceed to Payment
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Orders Section -->
+        <section id="my-orders" class="dashboard-section">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h1 class="section-title">My Orders</h1>
+                        <p class="section-subtitle">Track and manage your cylinder orders</p>
+                    </div>
+                </div>
+
+                <!-- Order Filters -->
+                <div class="order-filters">
+                    <button class="filter-btn active" data-filter="all">All Orders</button>
+                    <button class="filter-btn" data-filter="pending">Pending</button>
+                    <button class="filter-btn" data-filter="confirmed">Confirmed</button>
+                    <button class="filter-btn" data-filter="delivered">Delivered</button>
+                    <button class="filter-btn" data-filter="cancelled">Cancelled</button>
+                </div>
+
+                <!-- Orders List -->
+                <div class="orders-list">
+                    <div class="order-card" data-status="in-transit">
+                        <div class="order-header">
+                            <div class="order-id">
+                                <h3>Order #GB001235</h3>
+                                <span class="order-date">December 18, 2024</span>
+                            </div>
+                            <div class="order-status in-transit">
+                                <i data-lucide="truck"></i>
+                                Out for Delivery
+                            </div>
+                        </div>
+                        <div class="order-details">
+                            <div class="order-item">
+                                <div class="item-info">
+                                    <h4>Commercial Cylinder - 19 KG</h4>
+                                    <p>Quantity: 1 • Emergency Delivery</p>
+                                </div>
+                                <div class="item-price">₹1,649</div>
+                            </div>
+                        </div>
+                        <div class="order-actions">
+                            <button class="btn-outline track-order">
+                                <i data-lucide="map-pin"></i>
+                                Track Order
+                            </button>
+                            <button class="btn-outline">
+                                <i data-lucide="phone"></i>
+                                Contact Delivery Partner
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="order-card" data-status="delivered">
+                        <div class="order-header">
+                            <div class="order-id">
+                                <h3>Order #GB001234</h3>
+                                <span class="order-date">December 17, 2024</span>
+                            </div>
+                            <div class="order-status delivered">
+                                <i data-lucide="check-circle"></i>
+                                Delivered
+                            </div>
+                        </div>
+                        <div class="order-details">
+                            <div class="order-item">
+                                <div class="item-info">
+                                    <h4>Domestic Cylinder - 14.2 KG</h4>
+                                    <p>Quantity: 1 • Regular Delivery</p>
+                                </div>
+                                <div class="item-price">₹900</div>
+                            </div>
+                        </div>
+                        <div class="order-actions">
+                            <button class="btn-outline">
+                                <i data-lucide="download"></i>
+                                Download Invoice
+                            </button>
+                            <button class="btn-outline">
+                                <i data-lucide="repeat"></i>
+                                Reorder
+                            </button>
+                            <button class="btn-outline">
+                                <i data-lucide="star"></i>
+                                Rate & Review
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payments Section -->
+        <section id="payments" class="dashboard-section">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h1 class="section-title">Payment History</h1>
+                        <p class="section-subtitle">View all your transactions and payment methods</p>
+                    </div>
+                </div>
+
+                <!-- Payment Summary -->
+                <div class="payment-summary">
+                    <div class="payment-stat-card">
+                        <div class="stat-icon">
+                            <i data-lucide="credit-card"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>₹12,450</h3>
+                            <p>Total Spent This Year</p>
+                        </div>
+                    </div>
+                    <div class="payment-stat-card">
+                        <div class="stat-icon">
+                            <i data-lucide="trending-up"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>₹1,240</h3>
+                            <p>Savings Through Offers</p>
+                        </div>
+                    </div>
+                    <div class="payment-stat-card">
+                        <div class="stat-icon">
+                            <i data-lucide="star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>850</h3>
+                            <p>Loyalty Points Earned</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Methods -->
+                <div class="payment-methods">
+                    <h3>Saved Payment Methods</h3>
+                    <div class="payment-cards">
+                        <div class="payment-card">
+                            <div class="card-info">
+                                <i data-lucide="credit-card"></i>
+                                <div>
+                                    <h4>•••• •••• •••• 4242</h4>
+                                    <p>Visa • Expires 12/26</p>
+                                </div>
+                            </div>
+                            <button class="btn-outline-small">Remove</button>
+                        </div>
+                        <div class="payment-card">
+                            <div class="card-info">
+                                <i data-lucide="smartphone"></i>
+                                <div>
+                                    <h4>UPI - john@paytm</h4>
+                                    <p>Paytm UPI</p>
+                                </div>
+                            </div>
+                            <button class="btn-outline-small">Remove</button>
+                        </div>
+                        <button class="add-payment-method">
+                            <i data-lucide="plus"></i>
+                            Add New Payment Method
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Transaction History -->
+                <div class="transaction-history">
+                    <h3>Recent Transactions</h3>
+                    <div class="transaction-list">
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-icon success">
+                                    <i data-lucide="check"></i>
+                                </div>
+                                <div class="transaction-details">
+                                    <h4>Payment Successful</h4>
+                                    <p>Order #GB001235 • Commercial Cylinder</p>
+                                    <span class="transaction-date">Dec 18, 2024 • 3:45 PM</span>
+                                </div>
+                            </div>
+                            <div class="transaction-amount success">₹1,649</div>
+                        </div>
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-icon success">
+                                    <i data-lucide="check"></i>
+                                </div>
+                                <div class="transaction-details">
+                                    <h4>Payment Successful</h4>
+                                    <p>Order #GB001234 • Domestic Cylinder</p>
+                                    <span class="transaction-date">Dec 17, 2024 • 11:30 AM</span>
+                                </div>
+                            </div>
+                            <div class="transaction-amount success">₹900</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="dashboard-section">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h1 class="section-title">My Profile</h1>
+                        <p class="section-subtitle">Manage your account information and preferences</p>
+                    </div>
+                </div>
+
+                <div class="profile-content">
+                    <!-- Profile Information -->
+                    <div class="profile-card">
+                        <h3>Personal Information</h3>
+                        <form class="profile-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" value="John Doe">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input type="email" value="john.doe@example.com">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="tel" value="+91 9876543210">
+                                </div>
+                                <div class="form-group">
+                                    <label>Date of Birth</label>
+                                    <input type="date" value="1990-05-15">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Address</label>
+                                <textarea>123 Main Street, Apartment 4B
+New Delhi, Delhi 110001</textarea>
+                            </div>
+                            <button type="submit" class="btn-primary">Update Profile</button>
+                        </form>
+                    </div>
+
+                    <!-- Account Settings -->
+                    <div class="profile-card">
+                        <h3>Account Settings</h3>
+                        <div class="settings-list">
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Email Notifications</h4>
+                                    <p>Receive updates about your orders and offers</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>SMS Notifications</h4>
+                                    <p>Get delivery updates via SMS</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <script>
+        // Customer Dashboard JavaScript
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load dashboard data
+            loadDashboardData();
+            loadCylinders();
+            
+            // Update current date
+            const dateElement = document.getElementById('current-date');
+            if (dateElement) {
+                dateElement.textContent = new Date().toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            }
+
+            // Navigation handling
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.dashboard-section');
+
+            window.showSection = (sectionId) => {
+                sections.forEach(section => section.classList.remove('active'));
+                navLinks.forEach(link => link.classList.remove('active'));
+                
+                document.getElementById(sectionId).classList.add('active');
+                const navLink = document.querySelector(`[data-section="${sectionId}"]`);
+                if (navLink) navLink.classList.add('active');
+            };
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const sectionId = link.getAttribute('data-section');
+                    showSection(sectionId);
+                });
+            });
+
+            // Cylinder selection
+            document.querySelectorAll('.cylinder-select').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.getElementById('booking-form').style.display = 'block';
+                    document.getElementById('booking-form').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Booking type selection
+            document.querySelectorAll('.booking-type').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('.booking-type').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
+
+            // Order filtering
+            document.querySelectorAll('.filter-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    const filter = button.getAttribute('data-filter');
+                    const orders = document.querySelectorAll('.order-card');
+                    
+                    orders.forEach(order => {
+                        if (filter === 'all' || order.getAttribute('data-status') === filter) {
+                            order.style.display = 'block';
+                        } else {
+                            order.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Set minimum date to today for booking
+            const deliveryDate = document.getElementById('delivery-date');
+            if (deliveryDate) {
+                deliveryDate.min = new Date().toISOString().split('T')[0];
+            }
+            
+            // Initialize Lucide icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+
+        // API Functions
+        async function loadDashboardData() {
+            try {
+                const response = await fetch('/api/customer/dashboard');
+                if (!response.ok) {
+                    throw new Error('Failed to load dashboard data');
+                }
+                const data = await response.json();
+                
+                // Update user name
+                const userNameElements = document.querySelectorAll('.section-title');
+                if (userNameElements[0]) {
+                    userNameElements[0].textContent = `Welcome back, ${data.user_name}!`;
+                }
+                
+                // Update stats
+                updateDashboardStats(data.stats);
+                
+                // Update recent activity
+                updateRecentActivity(data.recent_activity);
+                
+                // Update date
+                const dateElement = document.getElementById('current-date');
+                if (dateElement && data.current_date) {
+                    dateElement.textContent = data.current_date;
+                }
+                
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                showNotification('Error loading dashboard data', 'error');
+            }
+        }
+
+        async function loadOrders(status = 'all') {
+            try {
+                const response = await fetch(`/api/customer/orders?status=${status}`);
+                if (!response.ok) {
+                    throw new Error('Failed to load orders');
+                }
+                const data = await response.json();
+                updateOrdersList(data.orders);
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                showNotification('Error loading orders', 'error');
+            }
+        }
+
+        async function loadPayments() {
+            try {
+                const response = await fetch('/api/customer/payments');
+                if (!response.ok) {
+                    throw new Error('Failed to load payments');
+                }
+                const data = await response.json();
+                updatePaymentsData(data);
+            } catch (error) {
+                console.error('Error loading payments:', error);
+                showNotification('Error loading payments', 'error');
+            }
+        }
+
+        async function loadCylinders() {
+            try {
+                const response = await fetch('/api/customer/cylinders');
+                if (!response.ok) {
+                    throw new Error('Failed to load cylinders');
+                }
+                const data = await response.json();
+                updateCylindersList(data.cylinders);
+            } catch (error) {
+                console.error('Error loading cylinders:', error);
+                showNotification('Error loading cylinders', 'error');
+            }
+        }
+
+        function updateDashboardStats(stats) {
+            const statCards = document.querySelectorAll('.stat-card');
+            if (statCards.length >= 4) {
+                // Active Orders
+                const activeOrdersCard = statCards[0];
+                const activeOrdersCount = activeOrdersCard.querySelector('h3');
+                if (activeOrdersCount) activeOrdersCount.textContent = stats.active_orders;
+
+                // Total Deliveries
+                const totalDeliveriesCard = statCards[1];
+                const totalDeliveriesCount = totalDeliveriesCard.querySelector('h3');
+                if (totalDeliveriesCount) totalDeliveriesCount.textContent = stats.total_orders;
+
+                // Total Savings
+                const savingsCard = statCards[2];
+                const savingsAmount = savingsCard.querySelector('h3');
+                if (savingsAmount) savingsAmount.textContent = `₹${Math.round(stats.total_spent * 0.1).toLocaleString()}`;
+
+                // Loyalty Points
+                const loyaltyCard = statCards[3];
+                const loyaltyPoints = loyaltyCard.querySelector('h3');
+                if (loyaltyPoints) loyaltyPoints.textContent = stats.loyalty_points;
+            }
+        }
+
+        function updateRecentActivity(activities) {
+            const timeline = document.querySelector('.activity-timeline');
+            if (!timeline) return;
+
+            timeline.innerHTML = '';
+            
+            activities.forEach(activity => {
+                const timelineItem = document.createElement('div');
+                timelineItem.className = `timeline-item ${activity.status}`;
+                timelineItem.innerHTML = `
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h4>${getActivityTitle(activity.status)}</h4>
+                        <p>${activity.description} • Order #${activity.order_id.substring(0, 8)}</p>
+                        <span class="timeline-date">${formatRelativeTime(activity.date)}</span>
+                    </div>
+                `;
+                timeline.appendChild(timelineItem);
+            });
+        }
+
+        function updateOrdersList(orders) {
+            const ordersList = document.querySelector('.orders-list');
+            if (!ordersList) return;
+
+            ordersList.innerHTML = '';
+
+            orders.forEach(order => {
+                const orderCard = document.createElement('div');
+                orderCard.className = 'order-card';
+                orderCard.setAttribute('data-status', order.status);
+                orderCard.innerHTML = `
+                    <div class="order-header">
+                        <div class="order-id">
+                            <h3>Order #${order.id.substring(0, 8)}</h3>
+                            <span class="order-date">${order.order_date}</span>
+                        </div>
+                        <div class="order-status ${order.status}">
+                            <i data-lucide="${getStatusIcon(order.status)}"></i>
+                            ${order.status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                        </div>
+                    </div>
+                    <div class="order-details">
+                        <div class="order-item">
+                            <div class="item-info">
+                                <h4>${order.cylinder_name}</h4>
+                                <p>Quantity: ${order.quantity} • ${order.booking_type.charAt(0).toUpperCase() + order.booking_type.slice(1)} Delivery</p>
+                            </div>
+                            <div class="item-price">₹${order.total_amount.toLocaleString()}</div>
+                        </div>
+                    </div>
+                    <div class="order-actions">
+                        ${getOrderActions(order)}
+                    </div>
+                `;
+                ordersList.appendChild(orderCard);
+            });
+
+            // Reinitialize icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        function updatePaymentsData(paymentsData) {
+            // Update payment stats
+            const paymentStatCards = document.querySelectorAll('.payment-stat-card');
+            if (paymentStatCards.length >= 3) {
+                const yearlySpentCard = paymentStatCards[0];
+                const yearlySpentAmount = yearlySpentCard.querySelector('h3');
+                if (yearlySpentAmount) yearlySpentAmount.textContent = `₹${paymentsData.stats.yearly_spent.toLocaleString()}`;
+
+                const savingsCard = paymentStatCards[1];
+                const savingsAmount = savingsCard.querySelector('h3');
+                if (savingsAmount) savingsAmount.textContent = `₹${paymentsData.stats.total_savings.toLocaleString()}`;
+
+                const pointsCard = paymentStatCards[2];
+                const pointsAmount = pointsCard.querySelector('h3');
+                if (pointsAmount) pointsAmount.textContent = paymentsData.stats.loyalty_points;
+            }
+
+            // Update transactions list
+            const transactionsList = document.querySelector('.transaction-list');
+            if (!transactionsList) return;
+
+            transactionsList.innerHTML = '';
+
+            paymentsData.transactions.forEach(transaction => {
+                const transactionItem = document.createElement('div');
+                transactionItem.className = 'transaction-item';
+                transactionItem.innerHTML = `
+                    <div class="transaction-info">
+                        <div class="transaction-icon ${transaction.status}">
+                            <i data-lucide="check"></i>
+                        </div>
+                        <div class="transaction-details">
+                            <h4>Payment ${transaction.status.charAt(0).toUpperCase() + transaction.status.slice(1)}</h4>
+                            <p>${transaction.description}</p>
+                            <span class="transaction-date">${transaction.date}</span>
+                        </div>
+                    </div>
+                    <div class="transaction-amount ${transaction.status}">₹${transaction.amount.toLocaleString()}</div>
+                `;
+                transactionsList.appendChild(transactionItem);
+            });
+
+            // Reinitialize icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        function updateCylindersList(cylinders) {
+            const cylinderGrid = document.querySelector('.cylinder-grid');
+            if (!cylinderGrid) return;
+
+            cylinderGrid.innerHTML = '';
+
+            cylinders.forEach(cylinder => {
+                const cylinderCard = document.createElement('div');
+                cylinderCard.className = 'cylinder-card';
+                cylinderCard.setAttribute('data-type', cylinder.type);
+                
+                const features = Array.isArray(cylinder.features) ? cylinder.features : [];
+                const featuresHTML = features.map(feature => `
+                    <span class="feature"><i data-lucide="shield-check"></i> ${feature}</span>
+                `).join('');
+
+                cylinderCard.innerHTML = `
+                    <div class="cylinder-image">
+                        <i data-lucide="${getCylinderIcon(cylinder.type)}"></i>
+                    </div>
+                    <div class="cylinder-info">
+                        <h3>${cylinder.type.charAt(0).toUpperCase() + cylinder.type.slice(1)} Cylinder</h3>
+                        <p class="cylinder-capacity">${cylinder.capacity} KG</p>
+                        <p class="cylinder-description">${cylinder.description}</p>
+                        <div class="cylinder-price">
+                            <span class="price">₹${cylinder.price.toLocaleString()}</span>
+                        </div>
+                        <div class="cylinder-features">
+                            ${featuresHTML}
+                        </div>
+                        <button class="btn-primary cylinder-select" data-cylinder="${cylinder.id}">
+                            Select Cylinder
+                        </button>
+                    </div>
+                `;
+                cylinderGrid.appendChild(cylinderCard);
+            });
+
+            // Reinitialize icons and event listeners
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // Re-attach cylinder select event listeners
+            document.querySelectorAll('.cylinder-select').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.getElementById('booking-form').style.display = 'block';
+                    document.getElementById('booking-form').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        }
+
+        // Helper functions
+        function getActivityTitle(status) {
+            const titles = {
+                'delivered': 'Cylinder Delivered Successfully',
+                'in_transit': 'Out for Delivery',
+                'confirmed': 'Order Confirmed',
+                'pending': 'Order Placed'
+            };
+            return titles[status] || 'Order Update';
+        }
+
+        function getStatusIcon(status) {
+            const icons = {
+                'pending': 'clock',
+                'confirmed': 'check-circle',
+                'in_transit': 'truck',
+                'delivered': 'check-circle',
+                'cancelled': 'x-circle'
+            };
+            return icons[status] || 'circle';
+        }
+
+        function getCylinderIcon(type) {
+            const icons = {
+                'domestic': 'home',
+                'commercial': 'building-2',
+                'industrial': 'factory'
+            };
+            return icons[type] || 'circle';
+        }
+
+        function getOrderActions(order) {
+            let actions = '';
+            
+            if (order.status === 'in_transit') {
+                actions += `
+                    <button class="btn-outline track-order">
+                        <i data-lucide="map-pin"></i>
+                        Track Order
+                    </button>
+                    <button class="btn-outline">
+                        <i data-lucide="phone"></i>
+                        Contact Delivery Partner
+                    </button>
+                `;
+            } else if (order.status === 'delivered') {
+                actions += `
+                    <button class="btn-outline">
+                        <i data-lucide="download"></i>
+                        Download Invoice
+                    </button>
+                    <button class="btn-outline">
+                        <i data-lucide="repeat"></i>
+                        Reorder
+                    </button>
+                    <button class="btn-outline">
+                        <i data-lucide="star"></i>
+                        Rate & Review
+                    </button>
+                `;
+            } else if (order.status === 'pending') {
+                actions += `
+                    <button class="btn-outline">
+                        <i data-lucide="edit-3"></i>
+                        Modify Order
+                    </button>
+                    <button class="btn-outline" style="color: var(--destructive);">
+                        <i data-lucide="x"></i>
+                        Cancel Order
+                    </button>
+                `;
+            }
+            
+            return actions;
+        }
+
+        function formatRelativeTime(dateString) {
+            if (!dateString) return 'Just now';
+            
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) return 'Just now';
+            if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} minutes ago`;
+            if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
+            return `${Math.floor(diffInSeconds / 86400)} days ago`;
+        }
+
+        function showNotification(message, type = 'info') {
+            // Simple notification system
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 2rem;
+                background: ${type === 'error' ? '#ef4444' : '#10b981'};
+                color: white;
+                border-radius: 0.5rem;
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
+        // Enhanced section switching with data loading
+        const originalShowSection = window.showSection;
+        window.showSection = (sectionId) => {
+            originalShowSection(sectionId);
+            
+            // Load section-specific data
+            switch (sectionId) {
+                case 'my-orders':
+                    loadOrders();
+                    break;
+                case 'payments':
+                    loadPayments();
+                    break;
+                case 'book-cylinder':
+                    loadCylinders();
+                    break;
+            }
+        };
+    </script>
+</body>
+</html>

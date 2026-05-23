@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agency Portal - GasBook</title>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="navbar agency-theme">
+        <div class="container">
+            <div class="navbar-inner">
+                <a href="index.html" class="logo">
+                    <i data-lucide="flame"></i>
+                    <span>GasBook</span>
+                    <span class="agency-badge">Agency</span>
+                </a>
+                <nav class="dashboard-nav">
+                    <a href="#orders" class="nav-link active" data-section="orders">
+                        <i data-lucide="shopping-bag"></i>
+                        Orders
+                    </a>
+                    <a href="#inventory" class="nav-link" data-section="inventory">
+                        <i data-lucide="package-2"></i>
+                        Inventory
+                    </a>
+                    <a href="#customers" class="nav-link" data-section="customers">
+                        <i data-lucide="users"></i>
+                        Customers
+                    </a>
+                    <a href="#reports" class="nav-link" data-section="reports">
+                        <i data-lucide="file-text"></i>
+                        Reports
+                    </a>
+                    <a href="#settings" class="nav-link" data-section="settings">
+                        <i data-lucide="settings"></i>
+                        Settings
+                    </a>
+                </nav>
+                <div class="header-actions">
+                    <button class="notification-btn">
+                        <i data-lucide="bell"></i>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button id="theme-switch">
+                        <i data-lucide="sun"></i>
+                        <i data-lucide="moon"></i>
+                    </button>
+                    <div class="user-menu">
+                        <button class="user-avatar">
+                            <i data-lucide="building-2"></i>
+                            <span>Mumbai Gas Agency</span>
+                            <i data-lucide="chevron-down"></i>
+                        </button>
+                        <div class="user-dropdown">
+                            <a href="#settings"><i data-lucide="settings"></i> Agency Settings</a>
+                            <a href="#help"><i data-lucide="help-circle"></i> Help & Support</a>
+                            <a href="index.html"><i data-lucide="log-out"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container agency-layout">
+        <!-- Orders Management Section -->
+        <section id="orders" class="dashboard-section active">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h1 class="section-title">Order Management</h1>
+                        <p class="section-subtitle">Manage and process customer orders efficiently</p>
+                    </div>
+                    <div class="section-actions">
+                        <button class="btn-outline">
+                            <i data-lucide="download"></i>
+                            Export Orders
+                        </button>
+                        <button class="btn-primary">
+                            <i data-lucide="plus"></i>
+                            Manual Order
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Order Status Overview -->
+                <div class="order-status-overview">
+                    <div class="status-card pending">
+                        <div class="status-count">23</div>
+                        <div class="status-label">Pending</div>
+                        <div class="status-change">+3 today</div>
+                    </div>
+                    <div class="status-card confirmed">
+                        <div class="status-count">45</div>
+                        <div class="status-label">Confirmed</div>
+                        <div class="status-change">+12 today</div>
+                    </div>
+                    <div class="status-card in-transit">
+                        <div class="status-count">67</div>
+                        <div class="status-label">In Transit</div>
+                        <div class="status-change">+8 today</div>
+                    </div>
+                    <div class="status-card delivered">
+                        <div class="status-count">156</div>
+                        <div class="status-label">Delivered</div>
+                        <div class="status-change">+34 today</div>
+                    </div>
+                </div>
+
+                <!-- Orders Table -->
+                <div class="orders-table-container">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Cylinder Type</th>
+                                <th>Quantity</th>
+                                <th>Order Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#GB001235</td>
+                                <td>
+                                    <div class="customer-info">
+                                        <strong>Rajesh Kumar</strong>
+                                        <small>+91 9876543210</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cylinder-info">
+                                        <span class="cylinder-type commercial">Commercial</span>
+                                        <small>19 KG</small>
+                                    </div>
+                                </td>
+                                <td>1</td>
+                                <td>Dec 18, 2024</td>
+                                <td>₹1,649</td>
+                                <td><span class="status-badge in-transit">In Transit</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon" title="View Details">
+                                            <i data-lucide="eye"></i>
+                                        </button>
+                                        <button class="btn-icon" title="Update Status">
+                                            <i data-lucide="edit-3"></i>
+                                        </button>
+                                        <button class="btn-icon" title="Contact Customer">
+                                            <i data-lucide="phone"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#GB001236</td>
+                                <td>
+                                    <div class="customer-info">
+                                        <strong>Amit Patel</strong>
+                                        <small>+91 9988776655</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="cylinder-info">
+                                        <span class="cylinder-type industrial">Industrial</span>
+                                        <small>47.5 KG</small>
+                                    </div>
+                                </td>
+                                <td>1</td>
+                                <td>Dec 19, 2024</td>
+                                <td>₹3,299</td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-icon confirm-order" title="Confirm Order">
+                                            <i data-lucide="check"></i>
+                                        </button>
+                                        <button class="btn-icon" title="Edit Order">
+                                            <i data-lucide="edit-3"></i>
+                                        </button>
+                                        <button class="btn-icon reject-order" title="Reject Order">
+                                            <i data-lucide="x"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Inventory Management Section -->
+        <section id="inventory" class="dashboard-section">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h1 class="section-title">Inventory Management</h1>
+                        <p class="section-subtitle">Monitor stock levels and manage cylinder inventory</p>
+                    </div>
+                    <div class="section-actions">
+                        <button class="btn-outline">
+                            <i data-lucide="upload"></i>
+                            Import Stock
+                        </button>
+                        <button class="btn-primary">
+                            <i data-lucide="plus"></i>
+                            Add Stock
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Inventory Overview -->
+                <div class="inventory-overview">
+                    <div class="inventory-stat">
+                        <div class="stat-icon">
+                            <i data-lucide="package"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>1,245</h3>
+                            <p>Total Stock</p>
+                            <span class="stat-trend positive">+12% this week</span>
+                        </div>
+                    </div>
+                    <div class="inventory-stat">
+                        <div class="stat-icon warning">
+                            <i data-lucide="alert-triangle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>5</h3>
+                            <p>Low Stock Items</p>
+                            <span class="stat-trend negative">Needs attention</span>
+                        </div>
+                    </div>
+                    <div class="inventory-stat">
+                        <div class="stat-icon">
+                            <i data-lucide="trending-up"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>₹12.5L</h3>
+                            <p>Stock Value</p>
+                            <span class="stat-trend positive">+8% this month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cylinder Stock Cards -->
+                <div class="cylinder-stock-grid">
+                    <div class="stock-card domestic">
+                        <div class="stock-header">
+                            <div class="cylinder-icon">
+                                <i data-lucide="home"></i>
+                            </div>
+                            <div class="stock-info">
+                                <h3>Domestic Cylinders</h3>
+                                <p>14.2 KG • ISI Certified</p>
+                            </div>
+                            <div class="stock-status good">
+                                <i data-lucide="check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="stock-metrics">
+                            <div class="metric">
+                                <span class="metric-value">847</span>
+                                <span class="metric-label">In Stock</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">156</span>
+                                <span class="metric-label">Reserved</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">45</span>
+                                <span class="metric-label">Damaged</span>
+                            </div>
+                        </div>
+                        <div class="stock-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 78%"></div>
+                            </div>
+                            <span class="progress-text">78% capacity</span>
+                        </div>
+                        <div class="stock-actions">
+                            <button class="btn-outline-small">
+                                <i data-lucide="plus"></i>
+                                Add Stock
+                            </button>
+                            <button class="btn-outline-small">
+                                <i data-lucide="eye"></i>
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="stock-card commercial">
+                        <div class="stock-header">
+                            <div class="cylinder-icon">
+                                <i data-lucide="building-2"></i>
+                            </div>
+                            <div class="stock-info">
+                                <h3>Commercial Cylinders</h3>
+                                <p>19 KG • Commercial Grade</p>
+                            </div>
+                            <div class="stock-status warning">
+                                <i data-lucide="alert-triangle"></i>
+                            </div>
+                        </div>
+                        <div class="stock-metrics">
+                            <div class="metric">
+                                <span class="metric-value">234</span>
+                                <span class="metric-label">In Stock</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">67</span>
+                                <span class="metric-label">Reserved</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">12</span>
+                                <span class="metric-label">Damaged</span>
+                            </div>
+                        </div>
+                        <div class="stock-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill warning" style="width: 32%"></div>
+                            </div>
+                            <span class="progress-text">32% capacity - Low Stock</span>
+                        </div>
+                        <div class="stock-actions">
+                            <button class="btn-primary btn-outline-small">
+                                <i data-lucide="plus"></i>
+                                Restock Now
+                            </button>
+                            <button class="btn-outline-small">
+                                <i data-lucide="eye"></i>
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="stock-card industrial">
+                        <div class="stock-header">
+                            <div class="cylinder-icon">
+                                <i data-lucide="factory"></i>
+                            </div>
+                            <div class="stock-info">
+                                <h3>Industrial Cylinders</h3>
+                                <p>47.5 KG • Heavy Duty</p>
+                            </div>
+                            <div class="stock-status critical">
+                                <i data-lucide="alert-circle"></i>
+                            </div>
+                        </div>
+                        <div class="stock-metrics">
+                            <div class="metric">
+                                <span class="metric-value">89</span>
+                                <span class="metric-label">In Stock</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">23</span>
+                                <span class="metric-label">Reserved</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value">8</span>
+                                <span class="metric-label">Damaged</span>
+                            </div>
+                        </div>
+                        <div class="stock-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill critical" style="width: 15%"></div>
+                            </div>
+                            <span class="progress-text">15% capacity - Critical!</span>
+                        </div>
+                        <div class="stock-actions">
+                            <button class="btn-danger btn-outline-small">
+                                <i data-lucide="alert-triangle"></i>
+                                Urgent Restock
+                            </button>
+                            <button class="btn-outline-small">
+                                <i data-lucide="eye"></i>
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customers Management Section -->
+        <section id="customers" class="dashboard-section">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h1 class="section-title">Customer Management</h1>
+                        <p class="section-subtitle">Manage customer relationships and analyze behavior</p>
+                    </div>
+                    <div class="section-actions">
+                        <button class="btn-outline">
+                            <i data-lucide="download"></i>
+                            Export Customers
+                        </button>
+                        <button class="btn-primary">
+                            <i data-lucide="user-plus"></i>
+                            Add Customer
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Customer Stats -->
+                <div class="customer-stats">
+                    <div class="customer-stat-card">
+                        <div class="stat-icon">
+                            <i data-lucide="users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>3,456</h3>
+                            <p>Total Customers</p>
+                            <span class="stat-change positive">+156 this month</span>
+                        </div>
+                    </div>
+                    <div class="customer-stat-card">
+                        <div class="stat-icon">
+                            <i data-lucide="user-check"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>2,891</h3>
+                            <p>Active Customers</p>
+                            <span class="stat-change positive">83.7% retention</span>
+                        </div>
+                    </div>
+                    <div class="customer-stat-card">
+                        <div class="stat-icon">
+                            <i data-lucide="star"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>4.8</h3>
+                            <p>Avg Rating</p>
+                            <span class="stat-change positive">+0.2 this month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer List -->
+                <div class="customers-grid">
+                    <div class="customer-card premium">
+                        <div class="customer-avatar">
+                            <i data-lucide="user-circle"></i>
+                        </div>
+                        <div class="customer-info">
+                            <h4>Rajesh Kumar</h4>
+                            <p>+91 9876543210</p>
+                            <p>rajesh.kumar@email.com</p>
+                            <span class="customer-segment premium">Premium</span>
+                        </div>
+                        <div class="customer-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Total Orders</span>
+                                <span class="stat-value">47</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Total Spent</span>
+                                <span class="stat-value">₹42,350</span>
+                            </div>
+                        </div>
+                        <div class="customer-actions">
+                            <button class="btn-outline-small">View Profile</button>
+                            <button class="btn-icon">
+                                <i data-lucide="phone"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="customer-card regular">
+                        <div class="customer-avatar">
+                            <i data-lucide="user-circle"></i>
+                        </div>
+                        <div class="customer-info">
+                            <h4>Priya Sharma</h4>
+                            <p>+91 9123456789</p>
+                            <p>priya.sharma@email.com</p>
+                            <span class="customer-segment regular">Regular</span>
+                        </div>
+                        <div class="customer-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Total Orders</span>
+                                <span class="stat-value">24</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Total Spent</span>
+                                <span class="stat-value">₹21,600</span>
+                            </div>
+                        </div>
+                        <div class="customer-actions">
+                            <button class="btn-outline-small">View Profile</button>
+                            <button class="btn-icon">
+                                <i data-lucide="phone"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reports Section -->
+        <section id="reports" class="dashboard-section">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h1 class="section-title">Reports & Analytics</h1>
+                        <p class="section-subtitle">Generate detailed business reports and insights</p>
+                    </div>
+                    <div class="section-actions">
+                        <button class="btn-outline">
+                            <i data-lucide="calendar"></i>
+                            Custom Date Range
+                        </button>
+                        <button class="btn-primary">
+                            <i data-lucide="download"></i>
+                            Export All Reports
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Reports -->
+                <div class="quick-reports">
+                    <h3>Quick Reports</h3>
+                    <div class="quick-report-grid">
+                        <button class="quick-report-btn">
+                            <i data-lucide="calendar-days"></i>
+                            <span>Daily Sales Report</span>
+                        </button>
+                        <button class="quick-report-btn">
+                            <i data-lucide="truck"></i>
+                            <span>Delivery Performance</span>
+                        </button>
+                        <button class="quick-report-btn">
+                            <i data-lucide="star"></i>
+                            <span>Customer Feedback</span>
+                        </button>
+                        <button class="quick-report-btn">
+                            <i data-lucide="package"></i>
+                            <span>Inventory Status</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="dashboard-section">
+            <div class="container">
+                <div class="section-header">
+                    <div>
+                        <h1 class="section-title">Agency Settings</h1>
+                        <p class="section-subtitle">Manage your agency profile and business preferences</p>
+                    </div>
+                </div>
+
+                <div class="settings-content">
+                    <!-- Agency Profile -->
+                    <div class="profile-card">
+                        <h3>Agency Information</h3>
+                        <form class="profile-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Agency Name</label>
+                                    <input type="text" value="Mumbai Gas Agency">
+                                </div>
+                                <div class="form-group">
+                                    <label>License Number</label>
+                                    <input type="text" value="MH-GAS-2024-001234">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Contact Number</label>
+                                    <input type="tel" value="+91 9876543210">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email Address</label>
+                                    <input type="email" value="info@mumbaigas.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Address</label>
+                                <textarea>456 Industrial Estate, Andheri East
+Mumbai, Maharashtra 400069</textarea>
+                            </div>
+                            <button type="submit" class="btn-primary">Update Agency Profile</button>
+                        </form>
+                    </div>
+
+                    <!-- Notification Settings -->
+                    <div class="profile-card">
+                        <h3>Notifications</h3>
+                        <div class="settings-list">
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>New Order Alerts</h4>
+                                    <p>Get notified when new orders are placed</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Low Stock Alerts</h4>
+                                    <p>Receive alerts when inventory is low</p>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        // Agency Portal JavaScript
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load initial data
+            loadDashboardData();
+            loadOrders();
+            
+            // Navigation handling
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.dashboard-section');
+
+            window.showSection = (sectionId) => {
+                sections.forEach(section => section.classList.remove('active'));
+                navLinks.forEach(link => link.classList.remove('active'));
+                
+                document.getElementById(sectionId).classList.add('active');
+                const navLink = document.querySelector(`[data-section="${sectionId}"]`);
+                if (navLink) navLink.classList.add('active');
+                
+                // Load section-specific data
+                switch (sectionId) {
+                    case 'orders':
+                        loadOrders();
+                        break;
+                    case 'inventory':
+                        loadInventory();
+                        break;
+                    case 'customers':
+                        loadCustomers();
+                        break;
+                }
+            };
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const sectionId = link.getAttribute('data-section');
+                    showSection(sectionId);
+                });
+            });
+
+            // Order actions
+            document.querySelectorAll('.confirm-order').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btn.innerHTML = '<i data-lucide="check"></i>';
+                    btn.classList.add('confirmed');
+                    btn.disabled = true;
+                    // Re-initialize icons
+                    if (typeof lucide !== 'undefined') {
+                        lucide.createIcons();
+                    }
+                });
+            });
+
+            // Initialize Lucide icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+
+        // API Functions for Agency Portal
+        async function loadDashboardData() {
+            try {
+                const response = await fetch('/api/agency/dashboard');
+                if (!response.ok) {
+                    throw new Error('Failed to load dashboard data');
+                }
+                const data = await response.json();
+                
+                // Update agency name
+                const userNameElements = document.querySelectorAll('.user-avatar span');
+                if (userNameElements[0] && data.agency_name) {
+                    userNameElements[0].textContent = data.agency_name;
+                }
+                
+                // Update order status overview
+                updateOrderStatusOverview(data.order_stats);
+                
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                showNotification('Error loading dashboard data', 'error');
+            }
+        }
+
+        async function loadOrders(status = 'all') {
+            try {
+                const response = await fetch(`/api/agency/orders?status=${status}`);
+                if (!response.ok) {
+                    throw new Error('Failed to load orders');
+                }
+                const data = await response.json();
+                updateOrdersTable(data.orders);
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                showNotification('Error loading orders', 'error');
+            }
+        }
+
+        async function loadInventory() {
+            try {
+                const response = await fetch('/api/agency/inventory');
+                if (!response.ok) {
+                    throw new Error('Failed to load inventory');
+                }
+                const data = await response.json();
+                updateInventoryData(data);
+            } catch (error) {
+                console.error('Error loading inventory:', error);
+                showNotification('Error loading inventory', 'error');
+            }
+        }
+
+        async function loadCustomers() {
+            try {
+                const response = await fetch('/api/agency/customers');
+                if (!response.ok) {
+                    throw new Error('Failed to load customers');
+                }
+                const data = await response.json();
+                updateCustomersData(data.customers);
+            } catch (error) {
+                console.error('Error loading customers:', error);
+                showNotification('Error loading customers', 'error');
+            }
+        }
+
+        async function updateOrderStatus(orderId, newStatus) {
+            try {
+                const response = await fetch(`/api/agency/order/${orderId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to update order status');
+                }
+                
+                showNotification('Order status updated successfully', 'success');
+                loadOrders(); // Reload orders to reflect changes
+                loadDashboardData(); // Update dashboard stats
+                
+            } catch (error) {
+                console.error('Error updating order status:', error);
+                showNotification('Error updating order status', 'error');
+            }
+        }
+
+        function updateOrderStatusOverview(orderStats) {
+            const statusCards = document.querySelectorAll('.status-card');
+            if (statusCards.length >= 4) {
+                // Pending
+                const pendingCard = statusCards[0];
+                const pendingCount = pendingCard.querySelector('.status-count');
+                if (pendingCount) pendingCount.textContent = orderStats.pending;
+
+                // Confirmed
+                const confirmedCard = statusCards[1];
+                const confirmedCount = confirmedCard.querySelector('.status-count');
+                if (confirmedCount) confirmedCount.textContent = orderStats.confirmed;
+
+                // In Transit
+                const transitCard = statusCards[2];
+                const transitCount = transitCard.querySelector('.status-count');
+                if (transitCount) transitCount.textContent = orderStats.in_transit;
+
+                // Delivered
+                const deliveredCard = statusCards[3];
+                const deliveredCount = deliveredCard.querySelector('.status-count');
+                if (deliveredCount) deliveredCount.textContent = orderStats.delivered;
+            }
+        }
+
+        function updateOrdersTable(orders) {
+            const ordersTableBody = document.querySelector('.orders-table tbody');
+            if (!ordersTableBody) return;
+
+            ordersTableBody.innerHTML = '';
+
+            orders.forEach(order => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>#${order.id.substring(0, 8)}</td>
+                    <td>
+                        <div class="customer-info">
+                            <strong>${order.customer_name}</strong>
+                            <small>${order.customer_phone}</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="cylinder-info">
+                            <span class="cylinder-type ${order.cylinder_type}">${order.cylinder_type.charAt(0).toUpperCase() + order.cylinder_type.slice(1)}</span>
+                            <small>${order.cylinder_capacity} KG</small>
+                        </div>
+                    </td>
+                    <td>${order.quantity}</td>
+                    <td>${order.order_date}</td>
+                    <td>₹${order.total_amount.toLocaleString()}</td>
+                    <td><span class="status-badge ${order.status}">${order.status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            ${getOrderActions(order)}
+                        </div>
+                    </td>
+                `;
+                ordersTableBody.appendChild(row);
+            });
+
+            // Reinitialize icons and event listeners
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // Attach order action event listeners
+            attachOrderActionListeners();
+        }
+
+        function updateInventoryData(inventoryData) {
+            // Update inventory overview
+            const inventoryStats = document.querySelectorAll('.inventory-stat');
+            if (inventoryStats.length >= 3) {
+                const totalStockStat = inventoryStats[0];
+                const totalStockValue = totalStockStat.querySelector('h3');
+                if (totalStockValue) totalStockValue.textContent = inventoryData.summary.total_stock.toLocaleString();
+
+                const lowStockStat = inventoryStats[1];
+                const lowStockValue = lowStockStat.querySelector('h3');
+                if (lowStockValue) lowStockValue.textContent = inventoryData.summary.low_stock_items;
+
+                const stockValueStat = inventoryStats[2];
+                const stockValueValue = stockValueStat.querySelector('h3');
+                if (stockValueValue) stockValueValue.textContent = `₹${Math.round(inventoryData.summary.total_value / 100000)}L`;
+            }
+
+            // Update cylinder stock cards
+            const stockGrid = document.querySelector('.cylinder-stock-grid');
+            if (!stockGrid) return;
+
+            stockGrid.innerHTML = '';
+
+            inventoryData.inventory.forEach(item => {
+                const stockCard = document.createElement('div');
+                stockCard.className = `stock-card ${item.cylinder_type}`;
+                
+                stockCard.innerHTML = `
+                    <div class="stock-header">
+                        <div class="cylinder-icon">
+                            <i data-lucide="${getCylinderIcon(item.cylinder_type)}"></i>
+                        </div>
+                        <div class="stock-info">
+                            <h3>${item.cylinder_type.charAt(0).toUpperCase() + item.cylinder_type.slice(1)} Cylinders</h3>
+                            <p>${item.cylinder_capacity} KG • ${item.cylinder_type === 'domestic' ? 'ISI Certified' : (item.cylinder_type === 'commercial' ? 'Commercial Grade' : 'Heavy Duty')}</p>
+                        </div>
+                        <div class="stock-status ${item.stock_status}">
+                            <i data-lucide="${item.stock_status === 'good' ? 'check-circle' : (item.stock_status === 'warning' ? 'alert-triangle' : 'alert-circle')}"></i>
+                        </div>
+                    </div>
+                    <div class="stock-metrics">
+                        <div class="metric">
+                            <span class="metric-value">${item.stock}</span>
+                            <span class="metric-label">In Stock</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">${item.reserved_stock}</span>
+                            <span class="metric-label">Reserved</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">${item.damaged_stock}</span>
+                            <span class="metric-label">Damaged</span>
+                        </div>
+                    </div>
+                    <div class="stock-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill ${item.stock_status}" style="width: ${item.capacity_percentage}%"></div>
+                        </div>
+                        <span class="progress-text">${item.capacity_percentage}% capacity${item.stock_status !== 'good' ? ` - ${item.stock_status === 'warning' ? 'Low Stock' : 'Critical!'}` : ''}</span>
+                    </div>
+                    <div class="stock-actions">
+                        <button class="btn-${item.stock_status === 'critical' ? 'danger' : (item.stock_status === 'warning' ? 'primary' : 'outline')}-small">
+                            <i data-lucide="${item.stock_status !== 'good' ? 'alert-triangle' : 'plus'}"></i>
+                            ${item.stock_status === 'critical' ? 'Urgent Restock' : (item.stock_status === 'warning' ? 'Restock Now' : 'Add Stock')}
+                        </button>
+                        <button class="btn-outline-small">
+                            <i data-lucide="eye"></i>
+                            View Details
+                        </button>
+                    </div>
+                `;
+                stockGrid.appendChild(stockCard);
+            });
+
+            // Reinitialize icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        function updateCustomersData(customers) {
+            const customersGrid = document.querySelector('.customers-grid');
+            if (!customersGrid) return;
+
+            customersGrid.innerHTML = '';
+
+            customers.forEach(customer => {
+                const customerCard = document.createElement('div');
+                customerCard.className = `customer-card ${customer.segment}`;
+                
+                customerCard.innerHTML = `
+                    <div class="customer-avatar">
+                        <i data-lucide="user-circle"></i>
+                    </div>
+                    <div class="customer-info">
+                        <h4>${customer.name}</h4>
+                        <p>${customer.phone}</p>
+                        <p>${customer.email}</p>
+                        <span class="customer-segment ${customer.segment}">${customer.segment.charAt(0).toUpperCase() + customer.segment.slice(1)}</span>
+                    </div>
+                    <div class="customer-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Orders</span>
+                            <span class="stat-value">${customer.total_orders}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Spent</span>
+                            <span class="stat-value">₹${customer.total_spent.toLocaleString()}</span>
+                        </div>
+                    </div>
+                    <div class="customer-actions">
+                        <button class="btn-outline-small">View Profile</button>
+                        <button class="btn-icon">
+                            <i data-lucide="phone"></i>
+                        </button>
+                    </div>
+                `;
+                customersGrid.appendChild(customerCard);
+            });
+
+            // Reinitialize icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        function getOrderActions(order) {
+            let actions = '';
+            
+            if (order.status === 'pending') {
+                actions = `
+                    <button class="btn-icon confirm-order" title="Confirm Order" data-order-id="${order.id}">
+                        <i data-lucide="check"></i>
+                    </button>
+                    <button class="btn-icon" title="Edit Order">
+                        <i data-lucide="edit-3"></i>
+                    </button>
+                    <button class="btn-icon reject-order" title="Reject Order" data-order-id="${order.id}">
+                        <i data-lucide="x"></i>
+                    </button>
+                `;
+            } else {
+                actions = `
+                    <button class="btn-icon" title="View Details">
+                        <i data-lucide="eye"></i>
+                    </button>
+                    <button class="btn-icon update-status" title="Update Status" data-order-id="${order.id}">
+                        <i data-lucide="edit-3"></i>
+                    </button>
+                    <button class="btn-icon" title="Contact Customer">
+                        <i data-lucide="phone"></i>
+                    </button>
+                `;
+            }
+            
+            return actions;
+        }
+
+        function attachOrderActionListeners() {
+            // Confirm order buttons
+            document.querySelectorAll('.confirm-order').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const orderId = btn.getAttribute('data-order-id');
+                    if (confirm('Are you sure you want to confirm this order?')) {
+                        updateOrderStatus(orderId, 'confirmed');
+                    }
+                });
+            });
+
+            // Reject order buttons
+            document.querySelectorAll('.reject-order').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const orderId = btn.getAttribute('data-order-id');
+                    if (confirm('Are you sure you want to reject this order?')) {
+                        updateOrderStatus(orderId, 'cancelled');
+                    }
+                });
+            });
+
+            // Update status buttons
+            document.querySelectorAll('.update-status').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const orderId = btn.getAttribute('data-order-id');
+                    const newStatus = prompt('Enter new status (confirmed, in_transit, delivered, cancelled):');
+                    if (newStatus && ['confirmed', 'in_transit', 'delivered', 'cancelled'].includes(newStatus)) {
+                        updateOrderStatus(orderId, newStatus);
+                    }
+                });
+            });
+        }
+
+        // Helper functions
+        function getCylinderIcon(type) {
+            const icons = {
+                'domestic': 'home',
+                'commercial': 'building-2',
+                'industrial': 'factory'
+            };
+            return icons[type] || 'circle';
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 1rem 2rem;
+                background: ${type === 'error' ? '#ef4444' : '#10b981'};
+                color: white;
+                border-radius: 0.5rem;
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
+    </script>
+</body>
+</html>

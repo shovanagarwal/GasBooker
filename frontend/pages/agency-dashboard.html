@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agency Dashboard - Gas Wala</title>
+    <link rel="stylesheet" href="../styles/agency-dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <h2>⛽ Gas Wala</h2>
+                    <span class="agency-badge">Agency Portal</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active">
+                        <a href="#dashboard" data-section="dashboard">
+                            <span class="nav-icon">🏠</span>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#orders" data-section="orders">
+                            <span class="nav-icon">📦</span>
+                            <span class="nav-text">Orders</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#inventory" data-section="inventory">
+                            <span class="nav-icon">📊</span>
+                            <span class="nav-text">Inventory</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#customers" data-section="customers">
+                            <span class="nav-icon">👥</span>
+                            <span class="nav-text">Customers</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#profile" data-section="profile">
+                            <span class="nav-icon">🏢</span>
+                            <span class="nav-text">Agency Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="logout()">
+                    <span class="nav-icon">🚪</span>
+                    <span class="nav-text">Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <span class="welcome-text">Welcome, <span id="agency-name">Loading...</span></span>
+                        <div class="user-avatar">🏢</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="content-area">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="content-section active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">📦</div>
+                            <div class="stat-content">
+                                <h3 id="total-orders-count">-</h3>
+                                <p>Total Orders</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⏳</div>
+                            <div class="stat-content">
+                                <h3 id="pending-orders-count">-</h3>
+                                <p>Pending Orders</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-content">
+                                <h3 id="monthly-revenue">-</h3>
+                                <p>Monthly Revenue</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">👥</div>
+                            <div class="stat-content">
+                                <h3 id="active-customers-count">-</h3>
+                                <p>Active Customers</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <!-- Recent Orders -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Recent Orders</h3>
+                                <a href="#" onclick="showSection('orders')" class="view-all-link">View All</a>
+                            </div>
+                            <div class="card-content">
+                                <div id="recent-orders" class="orders-preview">
+                                    <div class="loading-placeholder">Loading recent orders...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Inventory Alerts -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Inventory Alerts</h3>
+                                <a href="#" onclick="showSection('inventory')" class="view-all-link">View Inventory</a>
+                            </div>
+                            <div class="card-content">
+                                <div id="inventory-alerts" class="inventory-alerts">
+                                    <div class="loading-placeholder">Loading inventory alerts...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Orders Section -->
+                <section id="orders-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Order Management</h2>
+                        <div class="filter-controls">
+                            <select id="order-status-filter">
+                                <option value="all">All Orders</option>
+                                <option value="pending">Pending</option>
+                                <option value="confirmed">Confirmed</option>
+                                <option value="in_transit">In Transit</option>
+                                <option value="delivered">Delivered</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <div id="orders-list" class="orders-list">
+                                <div class="loading-placeholder">Loading orders...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Inventory Section -->
+                <section id="inventory-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Inventory Management</h2>
+                        <button class="btn primary" onclick="showAddInventoryModal()">
+                            <span>➕</span> Add Stock
+                        </button>
+                    </div>
+                    
+                    <div class="inventory-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">📦</div>
+                            <div class="stat-content">
+                                <h3 id="total-stock-count">-</h3>
+                                <p>Total Stock</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💎</div>
+                            <div class="stat-content">
+                                <h3 id="total-stock-value">-</h3>
+                                <p>Total Value</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⚠️</div>
+                            <div class="stat-content">
+                                <h3 id="low-stock-count">-</h3>
+                                <p>Low Stock Items</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <div id="inventory-list" class="inventory-list">
+                                <div class="loading-placeholder">Loading inventory...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Customers Section -->
+                <section id="customers-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Customer Management</h2>
+                        <div class="search-controls">
+                            <input type="text" id="customer-search" placeholder="Search customers...">
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <div id="customers-list" class="customers-list">
+                                <div class="loading-placeholder">Loading customers...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Profile Section -->
+                <section id="profile-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Agency Profile</h2>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <form id="profile-form" class="profile-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="agency-name-input">Agency Name</label>
+                                        <input type="text" id="agency-name-input" name="name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="agency-email">Email</label>
+                                        <input type="email" id="agency-email" name="email" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="agency-phone">Phone Number</label>
+                                        <input type="tel" id="agency-phone" name="phone" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="agency-license">License Number</label>
+                                        <input type="text" id="agency-license" name="license" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="agency-address">Agency Address</label>
+                                    <textarea id="agency-address" name="address" rows="3" placeholder="Enter complete agency address"></textarea>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn primary">Update Profile</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Order Details</h3>
+                <span class="close" onclick="closeOrderModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="order-details">
+                <!-- Order details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" onclick="closeOrderModal()">Close</button>
+                <button class="btn primary" id="update-status-btn" onclick="updateOrderStatus()">Update Status</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Inventory Modal -->
+    <div id="inventoryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Stock</h3>
+                <span class="close" onclick="closeInventoryModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="inventory-form">
+                    <div class="form-group">
+                        <label for="cylinder-type-select">Cylinder Type</label>
+                        <select id="cylinder-type-select" name="cylinder_type" required>
+                            <option value="">Select Cylinder Type</option>
+                            <option value="domestic">Domestic Cylinder</option>
+                            <option value="commercial">Commercial Cylinder</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cylinder-capacity">Capacity (kg)</label>
+                        <select id="cylinder-capacity" name="capacity" required>
+                            <option value="">Select Capacity</option>
+                            <option value="14">14kg</option>
+                            <option value="19">19kg</option>
+                            <option value="35">35kg</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="stock-quantity">Quantity to Add</label>
+                        <input type="number" id="stock-quantity" name="quantity" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="unit-price">Unit Price (₹)</label>
+                        <input type="number" id="unit-price" name="price" min="0" step="0.01" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" onclick="closeInventoryModal()">Cancel</button>
+                <button class="btn primary" onclick="addInventoryStock()">Add Stock</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading...</div>
+    </div>
+
+    <script src="../scripts/agency-dashboard.js"></script>
+</body>
+</html>

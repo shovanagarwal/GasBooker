@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Gas Wala</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .registration-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #e67e22, #f39c12);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .user-type-toggle {
+            display: flex;
+            background: #f8f9fa;
+            margin: 1.5rem;
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .toggle-btn.active {
+            background: #e67e22;
+            color: white;
+            box-shadow: 0 2px 8px rgba(230, 126, 34, 0.3);
+        }
+
+        .form-container {
+            padding: 0 1.5rem 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: #fff;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #e67e22;
+            box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #e67e22, #f39c12);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(230, 126, 34, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e9ecef;
+            color: #6c757d;
+        }
+
+        .login-link a {
+            color: #e67e22;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .notification {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            display: none;
+        }
+
+        .notification.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .notification.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        .field-help {
+            font-size: 0.875rem;
+            color: #6c757d;
+            margin-top: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .registration-container {
+                margin: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-container">
+        <div class="header">
+            <h1>⛽ Join Gas Wala</h1>
+            <p>Start your gas cylinder delivery experience</p>
+        </div>
+
+        <div class="user-type-toggle">
+            <button class="toggle-btn active" data-type="customer">Customer</button>
+            <button class="toggle-btn" data-type="agency">Agency Partner</button>
+        </div>
+
+        <div class="form-container">
+            <div id="notification" class="notification"></div>
+
+            <!-- Customer Registration Form -->
+            <form id="customer-form" class="registration-form">
+                <div class="form-group">
+                    <label for="customer-name">Full Name <span class="required">*</span></label>
+                    <input type="text" id="customer-name" name="name" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="customer-email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="customer-email" name="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-phone">Phone Number</label>
+                        <input type="tel" id="customer-phone" name="phone" placeholder="+91 9876543210">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="customer-password">Password <span class="required">*</span></label>
+                    <input type="password" id="customer-password" name="password" placeholder="Create a secure password" required>
+                    <div class="field-help">Password must be at least 6 characters long</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="customer-address">Address</label>
+                    <textarea id="customer-address" name="address" rows="3" placeholder="Enter your delivery address"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="customer-dob">Date of Birth</label>
+                    <input type="date" id="customer-dob" name="dateOfBirth">
+                </div>
+
+                <button type="submit" class="submit-btn">Create Customer Account</button>
+            </form>
+
+            <!-- Agency Registration Form -->
+            <form id="agency-form" class="registration-form" style="display: none;">
+                <div class="form-group">
+                    <label for="agency-name">Agency Name <span class="required">*</span></label>
+                    <input type="text" id="agency-name" name="name" placeholder="Enter your agency name" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="agency-email">Business Email <span class="required">*</span></label>
+                        <input type="email" id="agency-email" name="email" placeholder="business@agency.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="agency-phone">Contact Number</label>
+                        <input type="tel" id="agency-phone" name="phone" placeholder="+91 9876543210">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="agency-password">Password <span class="required">*</span></label>
+                    <input type="password" id="agency-password" name="password" placeholder="Create a secure password" required>
+                    <div class="field-help">Password must be at least 6 characters long</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="agency-address">Business Address</label>
+                    <textarea id="agency-address" name="address" rows="3" placeholder="Enter your business address"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="agency-license">License Number</label>
+                        <input type="text" id="agency-license" name="licenseNumber" placeholder="GAS-LICENSE-123">
+                        <div class="field-help">Gas agency license number (if available)</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="agency-type">Agency Type</label>
+                        <select id="agency-type" name="agencyType">
+                            <option value="retail">Retail Distribution</option>
+                            <option value="wholesale">Wholesale</option>
+                            <option value="distributor">Regional Distributor</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Register Agency</button>
+            </form>
+
+            <div class="login-link">
+                Already have an account? <a href="/" id="login-link">Sign in here</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentUserType = 'customer';
+
+        // DOM elements
+        const toggleBtns = document.querySelectorAll('.toggle-btn');
+        const customerForm = document.getElementById('customer-form');
+        const agencyForm = document.getElementById('agency-form');
+        const notification = document.getElementById('notification');
+        
+        console.log('🔍 DOM elements found:');
+        console.log('Toggle buttons:', toggleBtns.length);
+        console.log('Customer form:', customerForm ? 'Found ✅' : 'Not found ❌');
+        console.log('Agency form:', agencyForm ? 'Found ✅' : 'Not found ❌');
+        console.log('Notification:', notification ? 'Found ✅' : 'Not found ❌');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 DOM Content Loaded - Starting initialization');
+            initializeEventListeners();
+        });
+
+        function initializeEventListeners() {
+            console.log('🔧 Initializing event listeners');
+            
+            // User type toggle
+            toggleBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    console.log('🔄 User type toggle clicked:', this.getAttribute('data-type'));
+                    setUserType(this.getAttribute('data-type'));
+                });
+            });
+
+            // Form submissions
+            if (customerForm) {
+                console.log('📋 Adding customer form listener');
+                customerForm.addEventListener('submit', handleRegistration);
+            } else {
+                console.error('❌ Customer form not found!');
+            }
+            
+            if (agencyForm) {
+                console.log('🏢 Adding agency form listener');
+                agencyForm.addEventListener('submit', handleRegistration);
+            } else {
+                console.error('❌ Agency form not found!');
+            }
+
+            // Login link
+            const loginLink = document.getElementById('login-link');
+            if (loginLink) {
+                loginLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('↩️ Login link clicked');
+                    window.location.href = '/';
+                });
+            } else {
+                console.error('❌ Login link not found!');
+            }
+        }
+
+        function setUserType(type) {
+            currentUserType = type;
+            
+            // Update toggle buttons
+            toggleBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-type') === type) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Show/hide forms
+            if (type === 'customer') {
+                customerForm.style.display = 'block';
+                agencyForm.style.display = 'none';
+            } else {
+                customerForm.style.display = 'none';
+                agencyForm.style.display = 'block';
+            }
+
+            // Hide notification
+            hideNotification();
+        }
+
+        async function handleRegistration(e) {
+            e.preventDefault();
+            console.log('🚀 Registration form submitted');
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            const submitBtn = form.querySelector('.submit-btn');
+            
+            console.log('📋 Form element:', form);
+            console.log('🎯 Current user type:', currentUserType);
+            
+            // Prepare registration data
+            const registrationData = {
+                userType: currentUserType,
+                name: formData.get('name'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+                phone: formData.get('phone') || '',
+                address: formData.get('address') || ''
+            };
+
+            console.log('📝 Form data collected:', registrationData);
+
+            // Add type-specific fields
+            if (currentUserType === 'customer') {
+                registrationData.dateOfBirth = formData.get('dateOfBirth') || null;
+                console.log('👤 Customer-specific fields added');
+            } else {
+                registrationData.licenseNumber = formData.get('licenseNumber') || '';
+                registrationData.agencyType = formData.get('agencyType') || 'retail';
+                console.log('🏢 Agency-specific fields added');
+            }
+
+            console.log('📦 Final registration data:', registrationData);
+
+            // Validate required fields
+            if (!registrationData.name || !registrationData.email || !registrationData.password) {
+                console.log('❌ Validation failed - missing required fields');
+                showNotification('Please fill in all required fields', 'error');
+                return;
+            }
+
+            console.log('✅ Validation passed, making API request...');
+
+            // Show loading state
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Creating Account...';
+            submitBtn.disabled = true;
+
+            try {
+                console.log('📡 Sending request to /api/auth/register');
+                
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(registrationData)
+                });
+
+                console.log('📥 Response received:', response.status, response.ok);
+                
+                const result = await response.json();
+                console.log('📊 Response data:', result);
+
+                if (response.ok && result.success) {
+                    console.log('🎉 Registration successful!');
+                    showNotification(result.message, 'success');
+                    
+                    // Clear form
+                    form.reset();
+                    
+                    // Redirect to login after 2 seconds
+                    setTimeout(() => {
+                        console.log('↩️ Redirecting to login page');
+                        window.location.href = '/';
+                    }, 2000);
+                } else {
+                    console.log('❌ Registration failed:', result.message);
+                    showNotification(result.message || 'Registration failed. Please try again.', 'error');
+                }
+            } catch (error) {
+                console.error('❌ Registration error occurred:', error);
+                console.error('Error details:', error.message, error.stack);
+                showNotification('Registration failed. Please check your connection and try again.', 'error');
+            } finally {
+                console.log('🔄 Resetting button state');
+                // Reset button state
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+            
+            // Auto-hide after 5 seconds for non-success messages
+            if (type !== 'success') {
+                setTimeout(hideNotification, 5000);
+            }
+        }
+
+        function hideNotification() {
+            notification.style.display = 'none';
+        }
+
+        // Form validation helpers
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validatePhone(phone) {
+            const phoneRegex = /^[+]?[\d\s\-()]{10,}$/;
+            return phone === '' || phoneRegex.test(phone);
+        }
+
+        // Real-time validation (optional enhancement)
+        document.addEventListener('input', function(e) {
+            if (e.target.type === 'email') {
+                const isValid = validateEmail(e.target.value);
+                e.target.style.borderColor = isValid ? '#28a745' : '#dc3545';
+            }
+            
+            if (e.target.type === 'tel') {
+                const isValid = validatePhone(e.target.value);
+                e.target.style.borderColor = isValid ? '#28a745' : '#dc3545';
+            }
+        });
+    </script>
+</body>
+</html>

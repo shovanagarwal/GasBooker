@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test - GasBook</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .result { background: #f5f5f5; padding: 10px; border-radius: 4px; margin-top: 10px; white-space: pre-wrap; }
+        .error { background: #ffe6e6; color: #d00; }
+        .success { background: #e6ffe6; color: #080; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>GasBook API Integration Test</h1>
+    
+    <div class="test-section">
+        <h3>Authentication Test</h3>
+        <button onclick="testLogin()">Test Customer Login</button>
+        <button onclick="testAgencyLogin()">Test Agency Login</button>
+        <button onclick="testSession()">Check Session</button>
+        <div id="auth-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Basic Tests</h3>
+        <button onclick="testBasicCylinders()">Test Cylinders (No Auth)</button>
+        <div id="basic-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Customer API Tests</h3>
+        <button onclick="testCustomerDashboard()">Customer Dashboard</button>
+        <button onclick="testCustomerOrders()">Customer Orders</button>
+        <button onclick="testCustomerPayments()">Customer Payments</button>
+        <button onclick="testCylinders()">Cylinders List</button>
+        <div id="customer-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Agency API Tests</h3>
+        <button onclick="testAgencyDashboard()">Agency Dashboard</button>
+        <button onclick="testAgencyOrders()">Agency Orders</button>
+        <button onclick="testAgencyInventory()">Agency Inventory</button>
+        <button onclick="testAgencyCustomers()">Agency Customers</button>
+        <div id="agency-result" class="result"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://127.0.0.1:5000';
+
+        async function apiCall(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    credentials: 'include',
+                    ...options
+                });
+                const data = await response.json();
+                return { ok: response.ok, status: response.status, data };
+            } catch (error) {
+                return { ok: false, error: error.message };
+            }
+        }
+
+        async function testLogin() {
+            const result = await apiCall('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: 'john.doe@example.com',
+                    password: 'password123',
+                    userType: 'customer'
+                })
+            });
+            displayResult('auth-result', 'Customer Login', result);
+            
+            // Auto-check session after successful login
+            if (result.ok) {
+                setTimeout(async () => {
+                    const sessionResult = await apiCall('/api/test/session');
+                    console.log('Session after login:', sessionResult);
+                }, 100);
+            }
+        }
+
+        async function testAgencyLogin() {
+            const result = await apiCall('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: 'agency@mumbaigas.com',
+                    password: 'password123',
+                    userType: 'agency'
+                })
+            });
+            displayResult('auth-result', 'Agency Login', result);
+            
+            // Auto-check session after successful login
+            if (result.ok) {
+                setTimeout(async () => {
+                    const sessionResult = await apiCall('/api/test/session');
+                    console.log('Session after login:', sessionResult);
+                }, 100);
+            }
+        }
+
+        async function testCustomerDashboard() {
+            const result = await apiCall('/api/customer/dashboard');
+            displayResult('customer-result', 'Customer Dashboard', result);
+        }
+
+        async function testCustomerOrders() {
+            const result = await apiCall('/api/customer/orders');
+            displayResult('customer-result', 'Customer Orders', result);
+        }
+
+        async function testCustomerPayments() {
+            const result = await apiCall('/api/customer/payments');
+            displayResult('customer-result', 'Customer Payments', result);
+        }
+
+        async function testCylinders() {
+            const result = await apiCall('/api/customer/cylinders');
+            displayResult('customer-result', 'Cylinders List', result);
+        }
+
+        async function testAgencyDashboard() {
+            const result = await apiCall('/api/agency/dashboard');
+            displayResult('agency-result', 'Agency Dashboard', result);
+        }
+
+        async function testAgencyOrders() {
+            const result = await apiCall('/api/agency/orders');
+            displayResult('agency-result', 'Agency Orders', result);
+        }
+
+        async function testAgencyInventory() {
+            const result = await apiCall('/api/agency/inventory');
+            displayResult('agency-result', 'Agency Inventory', result);
+        }
+
+        async function testAgencyCustomers() {
+            const result = await apiCall('/api/agency/customers');
+            displayResult('agency-result', 'Agency Customers', result);
+        }
+
+        async function testSession() {
+            const result = await apiCall('/api/test/session');
+            displayResult('auth-result', 'Session Check', result);
+        }
+
+        async function testBasicCylinders() {
+            const result = await apiCall('/api/test/cylinders');
+            displayResult('basic-result', 'Basic Cylinders Test', result);
+        }
+
+        function displayResult(elementId, testName, result) {
+            const element = document.getElementById(elementId);
+            const resultClass = result.ok ? 'success' : 'error';
+            element.className = `result ${resultClass}`;
+            element.textContent = `${testName}:\nStatus: ${result.status || 'Error'}\nResult: ${JSON.stringify(result.data || result.error, null, 2)}`;
+        }
+    </script>
+</body>
+</html>

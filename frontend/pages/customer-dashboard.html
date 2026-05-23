@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - Gas Wala</title>
+    <link rel="stylesheet" href="/styles/customer-dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <h2>⛽ Gas Wala</h2>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active">
+                        <a href="#dashboard" data-section="dashboard">
+                            <span class="nav-icon">🏠</span>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#orders" data-section="orders">
+                            <span class="nav-icon">📦</span>
+                            <span class="nav-text">My Orders</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#book-cylinder" data-section="book-cylinder">
+                            <span class="nav-icon">➕</span>
+                            <span class="nav-text">Book Cylinder</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#payments" data-section="payments">
+                            <span class="nav-icon">💳</span>
+                            <span class="nav-text">Payments</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#profile" data-section="profile">
+                            <span class="nav-icon">👤</span>
+                            <span class="nav-text">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="logout()">
+                    <span class="nav-icon">🚪</span>
+                    <span class="nav-text">Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <span class="welcome-text">Welcome back, <span id="user-name">Loading...</span></span>
+                        <div class="user-avatar">👤</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="content-area">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="content-section active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">📦</div>
+                            <div class="stat-content">
+                                <h3 id="active-orders-count">-</h3>
+                                <p>Active Orders</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📋</div>
+                            <div class="stat-content">
+                                <h3 id="total-orders-count">-</h3>
+                                <p>Total Orders</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-content">
+                                <h3 id="total-spent-amount">-</h3>
+                                <p>Total Spent</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⭐</div>
+                            <div class="stat-content">
+                                <h3 id="loyalty-points">-</h3>
+                                <p>Loyalty Points</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <!-- Recent Activity -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Recent Activity</h3>
+                            </div>
+                            <div class="card-content">
+                                <div id="recent-activity" class="activity-list">
+                                    <div class="loading-placeholder">Loading recent activity...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Quick Actions</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="quick-actions">
+                                    <button class="action-btn primary" onclick="showSection('book-cylinder')">
+                                        <span class="action-icon">➕</span>
+                                        <span>Book New Cylinder</span>
+                                    </button>
+                                    <button class="action-btn secondary" onclick="showSection('orders')">
+                                        <span class="action-icon">📦</span>
+                                        <span>View Orders</span>
+                                    </button>
+                                    <button class="action-btn secondary" onclick="showSection('payments')">
+                                        <span class="action-icon">💳</span>
+                                        <span>Payment History</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Orders Section -->
+                <section id="orders-section" class="content-section">
+                    <div class="section-header">
+                        <h2>My Orders</h2>
+                        <div class="filter-controls">
+                            <select id="order-status-filter">
+                                <option value="all">All Orders</option>
+                                <option value="pending">Pending</option>
+                                <option value="confirmed">Confirmed</option>
+                                <option value="in_transit">In Transit</option>
+                                <option value="delivered">Delivered</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <div id="orders-list" class="orders-list">
+                                <div class="loading-placeholder">Loading orders...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Book Cylinder Section -->
+                <section id="book-cylinder-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Book New Cylinder</h2>
+                    </div>
+                    
+                    <!-- Step Progress -->
+                    <div class="booking-steps">
+                        <div class="step active" id="step-1">
+                            <div class="step-number">1</div>
+                            <div class="step-label">Select Cylinder</div>
+                        </div>
+                        <div class="step" id="step-2">
+                            <div class="step-number">2</div>
+                            <div class="step-label">Delivery Details</div>
+                        </div>
+                        <div class="step" id="step-3">
+                            <div class="step-number">3</div>
+                            <div class="step-label">Confirmation</div>
+                        </div>
+                    </div>
+
+                    <!-- Cylinder Booking -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Book New Cylinder</h3>
+                        </div>
+                        <div class="card-content">
+                            <form id="booking-form" class="booking-form">
+                                <div class="form-group">
+                                    <label for="cylinder-type">Select Cylinder Type</label>
+                                    <select id="cylinder-type" name="cylinder_type" required>
+                                        <option value="">Select Cylinder Type</option>
+                                        <!-- Options will be loaded from database -->
+                                    </select>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="quantity">Quantity</label>
+                                        <div class="quantity-selector">
+                                            <button type="button" class="qty-btn" onclick="changeQuantity(-1)">−</button>
+                                            <input type="number" id="quantity" name="quantity" min="1" max="5" value="1" required>
+                                            <button type="button" class="qty-btn" onclick="changeQuantity(1)">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="booking-type">Service Type</label>
+                                        <div class="service-options">
+                                            <label class="service-option">
+                                                <input type="radio" name="booking_type" value="delivery" checked>
+                                                <div class="option-content">
+                                                    <div class="option-icon">🚚</div>
+                                                    <div class="option-text">
+                                                        <div class="option-title">Home Delivery</div>
+                                                        <div class="option-desc">Free delivery within city limits</div>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                            <label class="service-option">
+                                                <input type="radio" name="booking_type" value="pickup">
+                                                <div class="option-content">
+                                                    <div class="option-icon">🏪</div>
+                                                    <div class="option-text">
+                                                        <div class="option-title">Store Pickup</div>
+                                                        <div class="option-desc">Collect from nearest store</div>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group" id="delivery-address-group">
+                                    <label for="delivery-address">Delivery Address</label>
+                                    <textarea id="delivery-address" name="delivery_address" rows="3" placeholder="Enter your complete delivery address" required></textarea>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="delivery-date">Preferred Date</label>
+                                        <input type="date" id="delivery-date" name="delivery_date" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="special-instructions">Special Instructions (Optional)</label>
+                                    <textarea id="special-instructions" name="special_instructions" rows="2" placeholder="Any special delivery instructions or notes"></textarea>
+                                </div>
+
+                                <!-- Payment Method Selection -->
+                                <div class="form-group">
+                                    <label>Payment Method</label>
+                                    <div class="payment-methods">
+                                        <label class="payment-option">
+                                            <input type="radio" name="payment_mode" value="cash" checked>
+                                            <div class="payment-content">
+                                                <div class="payment-icon">💵</div>
+                                                <div class="payment-text">
+                                                    <div class="payment-title">Cash on Delivery</div>
+                                                    <div class="payment-desc">Pay when cylinder is delivered</div>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <label class="payment-option">
+                                            <input type="radio" name="payment_mode" value="card">
+                                            <div class="payment-content">
+                                                <div class="payment-icon">💳</div>
+                                                <div class="payment-text">
+                                                    <div class="payment-title">Credit/Debit Card</div>
+                                                    <div class="payment-desc">Pay online instantly</div>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <label class="payment-option">
+                                            <input type="radio" name="payment_mode" value="upi">
+                                            <div class="payment-content">
+                                                <div class="payment-icon">📱</div>
+                                                <div class="payment-text">
+                                                    <div class="payment-title">UPI Payment</div>
+                                                    <div class="payment-desc">PhonePe, GPay, Paytm</div>
+                                                </div>
+                                            </div>
+                                        </label>
+                                        <label class="payment-option">
+                                            <input type="radio" name="payment_mode" value="netbanking">
+                                            <div class="payment-content">
+                                                <div class="payment-icon">🏦</div>
+                                                <div class="payment-text">
+                                                    <div class="payment-title">Net Banking</div>
+                                                    <div class="payment-desc">All major banks supported</div>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Price Summary -->
+                                <div class="price-summary" id="price-summary">
+                                    <h4>Order Summary</h4>
+                                    <div class="price-row">
+                                        <span>Cylinder Cost</span>
+                                        <span id="cylinder-cost">₹0</span>
+                                    </div>
+                                    <div class="price-row">
+                                        <span>Delivery Charge</span>
+                                        <span id="delivery-charge">₹50</span>
+                                    </div>
+                                    <div class="price-row total">
+                                        <span>Total Amount</span>
+                                        <span id="total-amount">₹50</span>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn primary">
+                                    <span class="btn-text">Proceed to Payment</span>
+                                    <span class="btn-loading" style="display: none;">⏳ Processing...</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Payments Section -->
+                <section id="payments-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Payment History</h2>
+                    </div>
+                    
+                    <div class="payment-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">📊</div>
+                            <div class="stat-content">
+                                <h3 id="yearly-spent">-</h3>
+                                <p>This Year</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🎁</div>
+                            <div class="stat-content">
+                                <h3 id="total-savings">-</h3>
+                                <p>Total Savings</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Transaction History</h3>
+                        </div>
+                        <div class="card-content">
+                            <div id="payments-list" class="payments-list">
+                                <div class="loading-placeholder">Loading payment history...</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Profile Section -->
+                <section id="profile-section" class="content-section">
+                    <div class="section-header">
+                        <h2>My Profile</h2>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <form id="profile-form" class="profile-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="profile-name">Full Name</label>
+                                        <input type="text" id="profile-name" name="name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profile-email">Email</label>
+                                        <input type="email" id="profile-email" name="email" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="profile-phone">Phone Number</label>
+                                        <input type="tel" id="profile-phone" name="phone" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="profile-segment">Customer Type</label>
+                                        <select id="profile-segment" name="segment">
+                                            <option value="residential">Residential</option>
+                                            <option value="commercial">Commercial</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="profile-address">Default Address</label>
+                                    <textarea id="profile-address" name="address" rows="3" placeholder="Enter your default delivery address"></textarea>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn primary">Update Profile</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading...</div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="payment-modal">
+        <div class="payment-modal-content">
+            <div class="payment-header">
+                <h3>Complete Payment</h3>
+                <div class="payment-amount" id="modal-payment-amount">₹0</div>
+                <p id="payment-method-text">Payment Method: Cash on Delivery</p>
+            </div>
+            
+            <div id="payment-form-container">
+                <!-- Payment form will be dynamically generated based on payment method -->
+            </div>
+            
+            <div class="payment-buttons">
+                <button class="btn btn-cancel" onclick="closePaymentModal()">Cancel</button>
+                <button class="btn primary" id="confirm-payment-btn" onclick="confirmPayment()">Confirm Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invoice Modal -->
+    <div id="invoice-modal" class="invoice-modal">
+        <div class="invoice-content" id="invoice-content">
+            <!-- Invoice content will be generated dynamically -->
+        </div>
+    </div>
+
+    <script src="/scripts/customer-dashboard.js"></script>
+</body>
+</html>

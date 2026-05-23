@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Dashboard - GasBook</title>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <div class="navbar-inner">
+                <a href="index.html" class="logo">
+                    <i data-lucide="flame"></i>
+                    <span>GasBook</span>
+                </a>
+                <nav>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="services.html">Services</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+                <button id="theme-switch">
+                    <i data-lucide="sun"></i>
+                    <i data-lucide="moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 via-transparent to-primary/10">
+        <div class="container px-4 md:px-6 mx-auto">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Choose Your Dashboard</h1>
+                <p class="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+                    Access your personalized dashboard based on your role in the GasBook platform
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Customer Dashboard Card -->
+                <div class="dashboard-choice-card customer">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i data-lucide="user"></i>
+                        </div>
+                        <h2>Customer Dashboard</h2>
+                        <p>Manage your gas cylinder orders and track deliveries</p>
+                    </div>
+                    
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <i data-lucide="shopping-cart"></i>
+                            <span>Quick cylinder booking</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="package"></i>
+                            <span>Order tracking & history</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="credit-card"></i>
+                            <span>Payment management</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="star"></i>
+                            <span>Loyalty points & rewards</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="zap"></i>
+                            <span>Emergency bookings</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="repeat"></i>
+                            <span>Subscription management</span>
+                        </div>
+                    </div>
+
+                    <a href="customer-dashboard.html" class="dashboard-btn customer-btn">
+                        <span>Access Customer Dashboard</span>
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Agency Dashboard Card -->
+                <div class="dashboard-choice-card agency">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i data-lucide="building-2"></i>
+                        </div>
+                        <h2>Agency Dashboard</h2>
+                        <p>Comprehensive business management and analytics platform</p>
+                    </div>
+                    
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <i data-lucide="bar-chart-3"></i>
+                            <span>Advanced analytics & reports</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="shopping-bag"></i>
+                            <span>Order management system</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="package-2"></i>
+                            <span>Inventory tracking</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="users"></i>
+                            <span>Customer relationship management</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="truck"></i>
+                            <span>Delivery management</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="settings"></i>
+                            <span>Business configuration</span>
+                        </div>
+                    </div>
+
+                    <a href="agency-dashboard.html" class="dashboard-btn agency-btn">
+                        <span>Access Agency Dashboard</span>
+                        <i data-lucide="arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="text-center mt-12">
+                <p class="text-muted-foreground mb-4">
+                    Need help choosing the right dashboard?
+                </p>
+                <a href="contact.html" class="btn-outline">
+                    <i data-lucide="help-circle"></i>
+                    Contact Support
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Lucide icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // Add hover effects
+            const cards = document.querySelectorAll('.dashboard-choice-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-8px)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .dashboard-choice-card {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-choice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            transition: opacity 0.3s ease;
+        }
+
+        .dashboard-choice-card.customer::before {
+            background: linear-gradient(90deg, hsl(var(--primary)), hsl(217 91% 70%));
+        }
+
+        .dashboard-choice-card.agency::before {
+            background: linear-gradient(90deg, hsl(142 76% 36%), hsl(142 76% 50%));
+        }
+
+        .dashboard-choice-card:hover {
+            box-shadow: var(--shadow-xl);
+            border-color: hsl(var(--primary));
+        }
+
+        .dashboard-choice-card:hover::before {
+            opacity: 1;
+        }
+
+        .dashboard-choice-card.customer:hover {
+            border-color: hsl(var(--primary));
+        }
+
+        .dashboard-choice-card.agency:hover {
+            border-color: hsl(142 76% 36%);
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .card-header .card-icon {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 1rem;
+            margin: 0 auto 1rem;
+            font-size: 1.75rem;
+        }
+
+        .customer .card-icon {
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(217 91% 70%));
+        }
+
+        .agency .card-icon {
+            background: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 76% 50%));
+        }
+
+        .card-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: hsl(var(--foreground));
+        }
+
+        .card-header p {
+            color: hsl(var(--muted-foreground));
+            line-height: 1.5;
+        }
+
+        .features-list {
+            margin-bottom: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            color: hsl(var(--foreground));
+            font-size: 0.875rem;
+        }
+
+        .feature-item i {
+            color: hsl(var(--primary));
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .agency .feature-item i {
+            color: hsl(142 76% 36%);
+        }
+
+        .dashboard-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+
+        .customer-btn {
+            background: linear-gradient(135deg, hsl(var(--primary)), hsl(217 91% 70%));
+            color: white;
+        }
+
+        .customer-btn:hover {
+            background: linear-gradient(135deg, hsl(217 91% 50%), hsl(217 91% 60%));
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .agency-btn {
+            background: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 76% 50%));
+            color: white;
+        }
+
+        .agency-btn:hover {
+            background: linear-gradient(135deg, hsl(142 76% 30%), hsl(142 76% 40%));
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .dashboard-choice-card {
+                padding: 1.5rem;
+            }
+            
+            .card-header .card-icon {
+                width: 3rem;
+                height: 3rem;
+                font-size: 1.5rem;
+            }
+            
+            .card-header h2 {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</body>
+</html>

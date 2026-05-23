@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gas - Home Gas Cylinder Booking</title>
+    <link rel="stylesheet" href="styles/landing.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo">
+                    <h2>⛽ Gas Wala</h2>
+                </div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#contact">Contact</a>
+                    <button class="login-btn" onclick="showLoginModal()">Login</button>
+                </div>
+                <div class="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Get Your Gas Cylinders Delivered at Your Doorstep</h1>
+                <p>Fast, reliable, and convenient gas cylinder booking service. Book online and get it delivered within
+                    hours.</p>
+                <div class="hero-buttons">
+                    <button class="cta-btn primary" onclick="showLoginModal('customer')">Book Now</button>
+                    <button class="cta-btn secondary" onclick="showLoginModal('agency')">For Agencies</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="gas-cylinder-illustration">
+                    <div class="cylinder"></div>
+                    <div class="delivery-truck"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Why Choose Gas Wala?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🚚</div>
+                        <h3>Fast Delivery</h3>
+                        <p>Get your gas cylinders delivered within 2-4 hours of booking</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💳</div>
+                        <h3>Multiple Payment Options</h3>
+                        <p>Pay online, cash on delivery, or through digital wallets</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Safe & Secure</h3>
+                        <p>All cylinders are safety checked and delivered by certified professionals</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Easy Tracking</h3>
+                        <p>Track your order in real-time from booking to delivery</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⭐</div>
+                        <h3>Quality Assurance</h3>
+                        <p>Only authorized dealers and genuine cylinders</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>24/7 Support</h3>
+                        <p>Round-the-clock customer support for all your queries</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="how-it-works">
+            <div class="container">
+                <h2>How It Works</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Book Online</h3>
+                        <p>Select your cylinder type and preferred delivery time</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Choose Payment</h3>
+                        <p>Pay online or choose cash on delivery option</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Track Delivery</h3>
+                        <p>Monitor your order status in real-time</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>Receive & Enjoy</h3>
+                        <p>Get your cylinder delivered safely to your doorstep</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Get in Touch</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <strong>📞 Phone:</strong>
+                            <span>+91-88096-XXXXX</span>
+                        </div>
+                        <div class="contact-item">
+                            <strong>✉️ Email:</strong>
+                            <span>shovanagarwal@gaswala.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <strong>⏰ Hours:</strong>
+                            <span>24/7 Service Available</span>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <form>
+                            <input type="text" placeholder="Your Name" required>
+                            <input type="email" placeholder="Your Email" required>
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                            <button type="submit">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <div class="modal-header">
+                <h2>Login to Gas Wala</h2>
+                <div class="user-type-toggle">
+                    <button class="toggle-btn active" data-type="customer">Customer</button>
+                    <button class="toggle-btn" data-type="agency">Agency</button>
+                </div>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="login-submit-btn">Login</button>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+            </form>
+            <div class="signup-link">
+                <p>Don't have an account? <a href="/register">Sign up here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Gas Wala</h3>
+                    <p>Your trusted partner for home gas cylinder delivery</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Gas Wala. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/landing.js"></script>
+</body>
+
+</html>
